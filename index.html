@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#171638" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+  <title>Digital Lava Lamp</title>
+</head>
+<body>
+  <canvas id="lamp" aria-label="Animated digital lava lamp"></canvas>
+  <section id="settings" class="settings hidden" aria-label="Lava lamp controls" aria-hidden="true">
+    <header><div><span class="eyebrow">DIGITAL LAVA LAMP</span><h1>Paused</h1></div><button id="resume" class="primary">▶ Resume</button></header>
+    <p class="hint">Choose your colors and pace, then resume for an uninterrupted view.</p>
+    <div class="form-grid">
+      <label>Top color<select id="top-color"></select></label>
+      <label>Bottom color<select id="bottom-color"></select></label>
+      <label>Lava color<select id="lava-color"></select></label>
+      <label>Speed<select id="speed"><option value="0.5">0.5× — very slow</option><option value="1">1× — natural</option><option value="1.5">1.5× — gentle</option><option value="2">2× — lively</option><option value="3">3× — fast</option></select></label>
+    </div>
+    <label class="toggle"><input id="wake-lock" type="checkbox" checked />Keep screen awake while playing <span class="toggle-note">when supported</span></label>
+    <div class="footer"><button id="reset" class="secondary">Reset defaults</button><span id="status" role="status" aria-live="polite"></span></div>
+  </section>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
