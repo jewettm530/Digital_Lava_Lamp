@@ -1,6 +1,6 @@
 import vertexSrc from './lava.vert.glsl?raw';
 import fragmentSrc from './lava.frag.glsl?raw';
-import { rgb, COLORS, type Settings } from '../settings';
+import { rgb, COLORS, LAVA_COLORS, type Settings } from '../settings';
 import type { Simulation } from '../simulation/Simulation';
 
 function compile(gl: WebGL2RenderingContext, type: number, code: string): WebGLShader {
@@ -28,7 +28,7 @@ export class Renderer {
     const gl = canvas.getContext('webgl2', { antialias: false, alpha: false, powerPreference: 'low-power' });
     if (!gl) throw Error('WebGL2 is not supported by this browser/device.');
     this.gl=gl; this.program=makeProgram(gl); this.vao=gl.createVertexArray();
-    for (const name of ['uAspect','uTime','uCount','uBlobs','uTop','uBottom','uLava'])
+    for (const name of ['uAspect','uTime','uCount','uBlobs','uTop','uBottom','uLava','uDarkWax'])
       this.loc[name]=gl.getUniformLocation(this.program,name==='uBlobs'?'uBlobs[0]':name);
   }
   resize(): number {
@@ -50,7 +50,8 @@ export class Renderer {
     gl.uniform4fv(this.loc.uBlobs,sim.uniforms());
     gl.uniform3fv(this.loc.uTop,rgb(COLORS[settings.top]));
     gl.uniform3fv(this.loc.uBottom,rgb(COLORS[settings.bottom]));
-    gl.uniform3fv(this.loc.uLava,rgb(COLORS[settings.lava]));
+    gl.uniform3fv(this.loc.uLava,rgb(LAVA_COLORS[settings.lava]));
+    gl.uniform1f(this.loc.uDarkWax,settings.lava==='Black' ? 1 : 0);
     gl.drawArrays(gl.TRIANGLES,0,3);
   }
 }

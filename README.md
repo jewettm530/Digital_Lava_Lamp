@@ -38,3 +38,6 @@ For GitHub Pages: in your repository Settings → Pages → Build and deployment
 This is a **runnable foundation**, not the final physically accurate wax simulation. It includes a smooth metaball field, procedural deformation, slow rising/falling, an edge pool, soft shading, and local color contrast adjustments. More natural merge/split dynamics and real-wax timing will be tuned in later iterations.
 
 The graphics fragment shader can be GPU-intensive on older mobile hardware. The renderer limits internal resolution; sustained battery use and FPS should be tested on real phones.
+
+## Recovery note
+The earlier Phase 26 zip accidentally omitted application files. This package restores the full Phase 25 project and applies the Phase 26 shader. Do not delete the .git folder in your local repository.

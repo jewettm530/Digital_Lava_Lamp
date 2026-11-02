@@ -1,0 +1,1 @@
+Phase 10: Replaced static interior glow/edge shading with a continuous SDF-derived curved surface normal, moving area-light direction, subtle specular and Fresnel response, and slowly advected low-frequency illumination. Physics and existing controls remain unchanged. Note: shader approximation, not volumetric raytracing.\n

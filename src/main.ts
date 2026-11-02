@@ -44,7 +44,7 @@ async function synchronize(): Promise<void> {
 function tick(timestamp: number): void {
   frameId=null;
   if(!active) return;
-  const dt=lastFrame===null ? 0 : (timestamp-lastFrame)/1000;
+  const dt=lastFrame===null ? 0 : Math.min(Math.max((timestamp-lastFrame)/1000,0), 0.05);
   lastFrame=timestamp;
   sim.update(dt,settings.speed);
   renderer.render(sim,settings);
@@ -80,7 +80,16 @@ function reflectSettings(): void {
 document.querySelector<HTMLButtonElement>('#reset')!.addEventListener('click',()=>{
   settings={...DEFAULTS};saveSettings(settings);reflectSettings();renderer.render(sim,settings);status.textContent='Defaults restored.';
 });
-function resize(): void {sim.resize(renderer.resize());renderer.render(sim,settings);}
+let previousAspect = sim.aspect;
+function resize(): void {
+  const nextAspect = renderer.resize();
+  // Browser UI and fractional layout changes should not remap all blob positions.
+  if (Math.abs(nextAspect-previousAspect)>0.002) {
+    sim.resize(nextAspect);
+    previousAspect=nextAspect;
+  }
+  renderer.render(sim,settings);
+}
 window.addEventListener('resize',resize);
 document.addEventListener('visibilitychange',()=>{void synchronize();});
 window.addEventListener('focus',()=>{void synchronize();});
